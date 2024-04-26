@@ -1,16 +1,19 @@
-const config = require('./utils/config')
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const middleware = require('./utils/middleware')
-const logger = require('./utils/logger')
+const config = require("./utils/config");
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const middleware = require("./utils/middleware");
+const logger = require("./utils/logger");
 
+const watchRoutes = require("./routes/watch");
 
-app.use(cors())
-app.use(express.json())
-app.use(middleware.requestLogger)
+app.use(cors());
+app.use(express.json());
+app.use(middleware.requestLogger);
 
-app.use(middleware.unknownEndpoint)
-app.use(middleware.errorHandler)
+app.use("/api/watches", watchRoutes);
 
-module.exports = app
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
+
+module.exports = app;
