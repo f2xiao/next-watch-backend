@@ -1,5 +1,6 @@
 ###
 GET http://localhost:8080/api/watches HTTP/1.1
 ###
-GET http://localhost:8080/api/watches/662bc7f0a6e50599f89983e7 HTTP/1.1
+GET http://localhost:8080/api/watches HTTP/1.1
+
 
