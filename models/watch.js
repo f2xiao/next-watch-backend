@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-
 mongoose.set('strictQuery', false)
 
 const url = process.env.MONGODB_URI
@@ -15,9 +14,12 @@ mongoose.connect(url)
   })
 
 const watchSchema = new mongoose.Schema({
-  TMDB_id: String,
-  interested: Boolean,
-  ratings: Number,
+  title: String,
+  description: String,
+  posterUrl: String,
+  backdropUrl:String,
+  trailerUrl: String,
+  category: String
 });
 
 watchSchema.set('toJSON', {
