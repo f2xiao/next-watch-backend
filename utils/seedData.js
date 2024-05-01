@@ -1,10 +1,13 @@
 const axios = require("axios");
 const fetchData = async (url, category, model) => {
   const res = await axios.get(url);
-  const data = res.data.results.filter( (obj) => obj.overview !== "").map(obj=>({TMDB_id: obj.id, backdropUrl:`https://image.tmdb.org/t/p/w500${obj.backdrop_path}`, posterUrl:`https://image.tmdb.org/t/p/w500${obj.poster_path}`, title:  obj.title || obj.name, description:obj.overview, trailerUrl: "", 
+  const data = res.data.results.filter( (obj) => obj.overview !== "").map(obj=>({TMDB_id: obj.id, backdropUrl:`https://image.tmdb.org/t/p/w500${obj.backdrop_path}`, posterUrl:`https://image.tmdb.org/t/p/w500${obj.poster_path}`, title:  obj.title || obj.name, description:obj.overview, 
   category:category}));
-  console.log(data.length);
-  model.insertMany(data);
+  // console.log(data.length);
+  const trailerData = await processTrailerdata(data, category);
+  // console.log(trailerData.length);
+  const finalData = data.map((obj, index) => ({...obj, trailer_youtube: trailerData[index] || "" }));
+  model.insertMany(finalData);
 }
 
 const fetchTrailers= async(url) => {
@@ -16,8 +19,7 @@ const fetchTrailers= async(url) => {
         // console.log(trailer.key);
         if (trailer) {
           // Get the first trailer (assuming there is one)
-          const trailerUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
-          return Promise.resolve(trailerUrl);
+          return Promise.resolve(trailer.key);
         }
       }else{
         return Promise.resolve("");
@@ -27,6 +29,15 @@ const fetchTrailers= async(url) => {
     return Promise.resolve("");
   }
 }
+
+const processTrailerdata = async (data, category) => { 
+  const promises = data.map(async (item) => {
+    // Perform asynchronous operation on each item
+    return await fetchTrailers(`https://api.themoviedb.org/3/${category ==="Movie" ? "movie" : "tv"}/${item.TMDB_id}/videos?api_key=${process.env.TMDB_API_KEY}`) 
+  });
+  const results = await Promise.all(promises);
+  return results;
+ }
 
 const seedData = (model) => { 
     const currentYear = new Date().getFullYear();
