@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const express = require("express");
-const watchController = require("../controllers/watch-controller");
+const watchController = require("../controllers/watch");
 
 // Retrieve all warehouses
 router.route("/").get(watchController.getAll);
