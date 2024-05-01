@@ -21,10 +21,10 @@ const userSchema = mongoose.Schema({
     }
   },
   passwordHash: String,
-  interestedWatch: [
+  interested_id: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Watch'
+      ref: 'Interested'
     }
   ],
 })
