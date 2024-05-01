@@ -11,7 +11,26 @@ POST http://localhost:8080/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "username":"admin",
+    "username":"adm",
     "email":"admin@nextwatch.ca",
+    "password":"iamtheadmin"
+}
+
+###
+POST http://localhost:8080/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"adm",
+    "email":"adminnextwatch.ca",
+    "password":"iamtheadmin"
+}
+
+###
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"admin",
     "password":"iamtheadmin"
 }
