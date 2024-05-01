@@ -8,25 +8,15 @@ const createUser = async (request, response) => {
   const saltRounds = 10
   const passwordHash = bcrypt.hashSync(password, saltRounds);
 
+  const user = new User({
+    username,
+    email,
+    passwordHash,
+  })
 
+  const savedUser = await user.save();
 
-  try {
-    const user = new User({
-      username,
-      email,
-      passwordHash,
-    })
-  
-    const savedUser = await user.save();
-  
-    response.status(201).json(savedUser);
-    
-  } catch (error) {
-    if(error.message.includes("E11000 duplicate key error")){
-      response.status(500).json({error: 'expected `username` to be unique'})
-    }
-    response.status(500).json({error: error.message});
-  }
+  response.status(201).json(savedUser);
 
 }
 
