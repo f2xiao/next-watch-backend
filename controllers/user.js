@@ -1,28 +1,35 @@
 const bcrypt = require('bcrypt');
-const usersRouter = require('express').Router()
 const User = require('../models/user');
 
-usersRouter.post('/', async (request, response) => {
-  const { username, email, password } = request.body
+// Function to validate email address using regex
+const createUser = async (request, response) => {
+  const { username, email, password } = request.body;
 
   const saltRounds = 10
-  const passwordHash = await bcrypt.hash(password, saltRounds)
+  const passwordHash = bcrypt.hashSync(password, saltRounds);
 
-  const user = new User({
-    username,
-    email,
-    passwordHash,
-  })
 
-  const savedUser = await user.save()
 
-  response.status(201).json(savedUser)
-})
+  try {
+    const user = new User({
+      username,
+      email,
+      passwordHash,
+    })
+  
+    const savedUser = await user.save();
+  
+    response.status(201).json(savedUser);
+    
+  } catch (error) {
+    if(error.message.includes("E11000 duplicate key error")){
+      response.status(500).json({error: 'expected `username` to be unique'})
+    }
+    response.status(500).json({error: error.message});
+  }
 
-usersRouter.get('/', async (request, response) => {
-  const users = await User
-    .find({}).populate('notes', { content: 1, important: 1 })
-  response.json(users)
-})
+}
 
-module.exports = usersRouter
+module.exports = {
+  createUser
+};
