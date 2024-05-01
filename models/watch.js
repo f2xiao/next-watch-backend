@@ -18,7 +18,7 @@ const watchSchema = new mongoose.Schema({
   description: String,
   posterUrl: String,
   backdropUrl:String,
-  trailerUrl: String,
+  trailer_youtube: String,
   category: String
 });
 
