@@ -1,0 +1,55 @@
+###
+POST http://localhost:8080/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "email":"viv@gmail.com",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+###
+POST http://localhost:8080/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "email":"vivgmail.com",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+
+###
+POST http://localhost:8080/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"viv",
+    "email":"viv@gmail.com",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+
+###
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+###
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"viv",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+###
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "password":"iamthead"
+}
+
+
