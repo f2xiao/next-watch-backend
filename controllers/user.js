@@ -8,6 +8,10 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const createUser = async (request, response) => {
   const { username, email, password } = request.body;
 
+  if(password.length < 6){
+    response.status(401).json({error:"Please provide a password longer than 6"});
+  }
+
   const saltRounds = 12
   const passwordHash = bcrypt.hashSync(password, saltRounds);
   
