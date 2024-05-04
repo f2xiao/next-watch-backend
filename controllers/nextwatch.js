@@ -65,4 +65,31 @@ const create = async (request, response) => {
   response.status(201).json(savedNextwatch);
 };
 
-module.exports = { create, getOne, getAll };
+const updateRating = async (request, response) => {
+  const { rating } = request.body;
+  const updatedNextwatch = await Nextwatch.findByIdAndUpdate(
+    request.params.id,
+    { $set: { rating: Number(rating) } }, // Define the update operation
+    {
+      new: true, // Return the updated document
+    }
+  );
+  response.json(updatedNextwatch);
+};
+
+const deleteOne = async (request, response) => {
+  const decodedToken = token.decode(request);
+  logger.info(decodedToken);
+  if (!decodedToken.user_id) {
+    return response.status(401).json({ error: "token invalid" });
+  }
+  const user = await User.findById(decodedToken.user_id);
+  logger.info(user);
+  const deletedNextwatch = await Nextwatch.findByIdAndDelete(request.params.id);
+  console.log(user.nextwatches);
+  user.nextwatches = user.nextwatches.filter((id) => id !== request.params.id);
+  await user.save();
+  response.status(204).end();
+};
+
+module.exports = { create, getOne, getAll, updateRating, deleteOne };

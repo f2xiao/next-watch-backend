@@ -73,6 +73,9 @@ Content-Type: application/json
 GET http://localhost:8080/api/nextwatches HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTkwN2I5OTgyYzAyNjBkN2I5NTUzIiwidXNlcm5hbWUiOiJwaXhpZSIsImlhdCI6MTcxNDc4NjQ0NSwiZXhwIjoxNzE0OTU5MjQ1fQ.YcA5y6R0DgOwo4PxhZwJy0j_I2rrOYH2RlqndGGIN-8
 Content-Type: application/json
-
+###
+DELETE http://localhost:8080/api/nextwatches/6635a7b28de7dc903b87384a HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTkwN2I5OTgyYzAyNjBkN2I5NTUzIiwidXNlcm5hbWUiOiJwaXhpZSIsImlhdCI6MTcxNDc4NjQ0NSwiZXhwIjoxNzE0OTU5MjQ1fQ.YcA5y6R0DgOwo4PxhZwJy0j_I2rrOYH2RlqndGGIN-8
+Content-Type: application/json
 
 
