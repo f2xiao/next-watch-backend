@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const logger = require("../utils/logger");
 const JWT_SECRET = process.env.JWT_SECRET;
+const token = require("../utils/token");
 
 // Function to validate email address using regex
 const signup = async (request, response) => {
@@ -55,8 +56,26 @@ const login = async (req, res) => {
   // Send the token back to the user
   res.status(200).json({ token: authToken });
 };
+const getNextwatches = async (request, response) => {
+  const decodedToken = token.decode(request);
+  logger.info(decodedToken);
+  if (!decodedToken.user_id) {
+    return response.status(401).json({ error: "token invalid" });
+  }
+  const user = await User.findById(decodedToken.user_id).populate({
+    path: "nextwatches",
+    populate: { path: "watch_id" },
+  });
+
+  logger.info(user);
+
+  response.json(user.nextwatches);
+};
+
+
 
 module.exports = {
   signup,
   login,
+  getNextwatches,
 };

@@ -12,23 +12,23 @@ const token = require("../utils/token");
 //   return null;
 // };
 
-const getAll = async (request, response) => {
-  const decodedToken = token.decode(request);
-  logger.info(decodedToken);
-  if (!decodedToken.user_id) {
-    return response.status(401).json({ error: "token invalid" });
-  }
-  const user = await User.findById(decodedToken.user_id);
-  logger.info(user);
+// const getAll = async (request, response) => {
+//   const decodedToken = token.decode(request);
+//   logger.info(decodedToken);
+//   if (!decodedToken.user_id) {
+//     return response.status(401).json({ error: "token invalid" });
+//   }
+//   const user = await User.findById(decodedToken.user_id);
+//   logger.info(user);
 
-  const nextwatches = await Nextwatch.find({
-    user_id: user._id,
-  }).populate("watch_id", {
-    title: 1,
-    category: 1,
-  });
-  response.json(nextwatches);
-};
+//   const nextwatches = await Nextwatch.find({
+//     user_id: user._id,
+//   }).populate("watch_id", {
+//     title: 1,
+//     category: 1,
+//   });
+//   response.json(nextwatches);
+// };
 
 const getOne = async (request, response) => {
   const nextwatch = await Nextwatch.findById(request.params.id);
@@ -85,11 +85,13 @@ const deleteOne = async (request, response) => {
   }
   const user = await User.findById(decodedToken.user_id);
   logger.info(user);
-  const deletedNextwatch = await Nextwatch.findByIdAndDelete(request.params.id);
+  const deletedNextwatch = await Nextwatch.findById(request.params.id);
   console.log(user.nextwatches);
-  user.nextwatches = user.nextwatches.filter((id) => id !== request.params.id);
+  user.nextwatches = user.nextwatches.filter(
+    (id) => id !== deletedNextwatch._id
+  );
   await user.save();
   response.status(204).end();
 };
 
-module.exports = { create, getOne, getAll, updateRating, deleteOne };
+module.exports = { create, getOne, updateRating, deleteOne };
