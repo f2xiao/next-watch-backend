@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const logger = require("../utils/logger");
 const JWT_SECRET = process.env.JWT_SECRET;
+// const token = require("../utils/token");
 
 // Function to validate email address using regex
 const signup = async (request, response) => {
@@ -56,7 +57,49 @@ const login = async (req, res) => {
   res.status(200).json({ token: authToken });
 };
 
+const getOne = async (req, res) => {
+  const user = await User.findOne({
+    username: req.user.username,
+  }).populate({
+    path: "nextwatches",
+    populate: { path: "watch_id" },
+  });
+
+  if (!user) {
+    res.status(401).json({ message: "Unauthorized" });
+  } else {
+    delete user.passwordHash;
+    logger.info("user: ", user);
+    res.status(200).json(user);
+  }
+};
+
+const getNextwatches = async (request, response) => {
+  const user = await User.findById(request.user.user_id).populate(
+    "nextwatches"
+  );
+
+  logger.info(user);
+
+  response.json(user.nextwatches);
+};
+
+const updateShare = async (request, response) => {
+  const user = await User.findById(request.user.user_id);
+
+  if (!user) {
+    response.status(401).json({ error: "Unauthorized" });
+  } else {
+    user.share = !user.share;
+    user.save();
+    response.status(200).json({ message: "Update share successfully" });
+  }
+};
+
 module.exports = {
   signup,
   login,
+  getOne,
+  getNextwatches,
+  updateShare,
 };

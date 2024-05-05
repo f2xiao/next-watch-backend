@@ -2,94 +2,137 @@
 const Nextwatch = require("../models/nextwatch");
 const User = require("../models/user");
 const logger = require("../utils/logger");
-const token = require("../utils/token");
-
-// const getTokenFrom = (request) => {
-//   const authorization = request.get("authorization");
-//   if (authorization && authorization.startsWith("Bearer ")) {
-//     return authorization.replace("Bearer ", "");
-//   }
-//   return null;
-// };
 
 const getAll = async (request, response) => {
-  const decodedToken = token.decode(request);
-  logger.info(decodedToken);
-  if (!decodedToken.user_id) {
-    return response.status(401).json({ error: "token invalid" });
-  }
-  const user = await User.findById(decodedToken.user_id);
-  logger.info(user);
-
   const nextwatches = await Nextwatch.find({
-    user_id: user._id,
+    user_id: request.user.user_id,
   }).populate("watch_id", {
     title: 1,
     category: 1,
   });
-  response.json(nextwatches);
+
+  if (!nextwatches) {
+    response.status(401).json({ error: "Unauthorized" });
+  }
+  response.status(200).json(nextwatches);
 };
 
 const getOne = async (request, response) => {
-  const nextwatch = await Nextwatch.findById(request.params.id);
-  if (nextwatch) {
-    response.json(nextwatch);
+  const user = await User.findById(request.user.user_id);
+
+  if (!user) {
+    response.status(401).json({ error: "Unauthorized" });
   } else {
-    response.status(404).end();
+    const nextwatch = await Nextwatch.find({
+      _id: request.params.id,
+      user_id: user._id,
+    });
+    if (nextwatch) {
+      response.status(200).json(nextwatch);
+    } else {
+      response.status(404).end();
+    }
+  }
+};
+
+const getOneWatchId = async (request, response) => {
+  logger.info(request.params.watchId);
+
+  const user = await User.findById(request.user.user_id);
+
+  if (!user) {
+    response.status(401).json({ error: "Unauthorized" });
+  } else {
+    const nextwatch = await Nextwatch.findOne({
+      watch_id: request.params.watchId,
+      user_id: user._id,
+    });
+
+    logger.info(nextwatch);
+    if (nextwatch) {
+      response.status(200).json(nextwatch);
+    } else {
+      response.status(404).json({ message: "can't find it" });
+    }
   }
 };
 
 const create = async (request, response) => {
   const { watch_id } = request.body;
-  // const decodedToken = jwt.verify(
-  //   getTokenFrom(request),
-  //   process.env.JWT_SECRET
-  // );
-  const decodedToken = token.decode(request);
-  logger.info(decodedToken);
-  if (!decodedToken.user_id) {
-    return response.status(401).json({ error: "token invalid" });
+
+  if (!watch_id) {
+    return response
+      .status(401)
+      .json({ error: "watch_id is missing in the request body" });
+  } else {
+    const user = await User.findById(request.user.user_id);
+
+    if (!user) {
+      response.status(401).json({ error: "Unauthorized" });
+    }
+
+    const nextwatch = new Nextwatch({
+      watch_id: watch_id,
+      user_id: user._id,
+    });
+
+    const savedNextwatch = await nextwatch.save();
+    user.nextwatches = user.nextwatches.concat(savedNextwatch._id);
+    await user.save();
+
+    response.status(201).json(savedNextwatch);
   }
-  const user = await User.findById(decodedToken.user_id);
-  logger.info(user);
-
-  const nextwatch = new Nextwatch({
-    watch_id: watch_id,
-    user_id: user._id,
-  });
-
-  const savedNextwatch = await nextwatch.save();
-  user.nextwatches = user.nextwatches.concat(savedNextwatch._id);
-  await user.save();
-
-  response.status(201).json(savedNextwatch);
 };
 
 const updateRating = async (request, response) => {
   const { rating } = request.body;
-  const updatedNextwatch = await Nextwatch.findByIdAndUpdate(
-    request.params.id,
-    { $set: { rating: Number(rating) } }, // Define the update operation
-    {
-      new: true, // Return the updated document
+
+  if (!rating) {
+    return response
+      .status(401)
+      .json({ error: "rating is missing in the request body" });
+  } else {
+    const user = await User.findById(request.user.user_id);
+
+    if (!user) {
+      response.status(401).json({ error: "Unauthorized" });
+    } else {
+      const updatedNextwatch = await Nextwatch.findByIdAndUpdate(
+        request.params.id,
+        { $set: { rating: Number(rating) } }, // Define the update operation
+        {
+          new: true, // Return the updated document
+        }
+      );
+      response.status(200).json({ message: "Update the rating successfully" });
     }
-  );
-  response.json(updatedNextwatch);
+  }
 };
 
 const deleteOne = async (request, response) => {
-  const decodedToken = token.decode(request);
-  logger.info(decodedToken);
-  if (!decodedToken.user_id) {
-    return response.status(401).json({ error: "token invalid" });
+  const user = await User.findById(request.user.user_id);
+
+  if (!user) {
+    response.status(401).json({ error: "Unauthorized" });
+  } else {
+    const deletedNextwatch = await Nextwatch.deleteOne({
+      _id: request.params.id,
+    });
+
+    // also delete the one in the user.nextwatches array
+    const deletedItem = await User.updateOne(
+      { _id: user._id },
+      { $pull: { nextwatches: request.params.id } }
+    );
+    response.status(204).end();
   }
-  const user = await User.findById(decodedToken.user_id);
-  logger.info(user);
-  const deletedNextwatch = await Nextwatch.findByIdAndDelete(request.params.id);
-  console.log(user.nextwatches);
-  user.nextwatches = user.nextwatches.filter((id) => id !== request.params.id);
-  await user.save();
-  response.status(204).end();
 };
 
-module.exports = { create, getOne, getAll, updateRating, deleteOne };
+module.exports = {
+  getAll,
+  getOne,
+  getOneWatchId,
+  create,
+  updateRating,
+  deleteOne,
+};
