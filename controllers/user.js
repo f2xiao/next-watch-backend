@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const logger = require("../utils/logger");
 const JWT_SECRET = process.env.JWT_SECRET;
-const token = require("../utils/token");
+// const token = require("../utils/token");
 
 // Function to validate email address using regex
 const signup = async (request, response) => {
@@ -56,26 +56,37 @@ const login = async (req, res) => {
   // Send the token back to the user
   res.status(200).json({ token: authToken });
 };
-const getNextwatches = async (request, response) => {
-  const decodedToken = token.decode(request);
-  logger.info(decodedToken);
-  if (!decodedToken.user_id) {
-    return response.status(401).json({ error: "token invalid" });
-  }
-  const user = await User.findById(decodedToken.user_id).populate({
+
+const getOne = async (req, res) => {
+  const user = await User.findOne({
+    username: req.user.username,
+  }).populate({
     path: "nextwatches",
     populate: { path: "watch_id" },
   });
+
+  if (!user) {
+    res.status(401).json({ message: "Unauthorized" });
+  } else {
+    delete user.passwordHash;
+    logger.info("user: ", user);
+    res.status(200).json(user);
+  }
+};
+
+const getNextwatches = async (request, response) => {
+  const user = await User.findById(request.user.user_id).populate(
+    "nextwatches"
+  );
 
   logger.info(user);
 
   response.json(user.nextwatches);
 };
 
-
-
 module.exports = {
   signup,
   login,
+  getOne,
   getNextwatches,
 };

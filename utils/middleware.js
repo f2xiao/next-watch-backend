@@ -1,4 +1,6 @@
+const { decode } = require("jsonwebtoken");
 const logger = require("./logger");
+const token = require("./token");
 
 const requestLogger = (request, response, next) => {
   logger.info("Method:", request.method);
@@ -42,8 +44,24 @@ const errorHandler = (error, request, response, next) => {
   next(error);
 };
 
+const authenticateUser = async (request, response, next) => {
+  const decoded = token.decode(request);
+  logger.info(decoded);
+  if (!decoded.user_id || !decoded.username || !decoded) {
+    return response.status(401).json({ error: "token invalid" });
+  } else {
+    try {
+      request.user = decoded;
+      next();
+    } catch (error) {
+      return response.status(401).json({ error: "Unauthorized" });
+    }
+  }
+};
+
 module.exports = {
   requestLogger,
   unknownEndpoint,
   errorHandler,
+  authenticateUser,
 };
