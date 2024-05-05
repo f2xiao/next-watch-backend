@@ -84,9 +84,22 @@ const getNextwatches = async (request, response) => {
   response.json(user.nextwatches);
 };
 
+const updateShare = async (request, response) => {
+  const user = await User.findById(request.user.user_id);
+
+  if (!user) {
+    response.status(401).json({ error: "Unauthorized" });
+  } else {
+    user.share = !user.share;
+    user.save();
+    response.status(200).json({ message: "Update share successfully" });
+  }
+};
+
 module.exports = {
   signup,
   login,
   getOne,
   getNextwatches,
+  updateShare,
 };

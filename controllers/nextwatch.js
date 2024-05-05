@@ -104,7 +104,7 @@ const updateRating = async (request, response) => {
           new: true, // Return the updated document
         }
       );
-      response.json(updatedNextwatch);
+      response.status(200).json({ message: "Update the rating successfully" });
     }
   }
 };
