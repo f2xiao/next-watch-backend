@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const logger = require("../utils/logger");
+const { populate } = require("dotenv");
 const JWT_SECRET = process.env.JWT_SECRET;
 // const token = require("../utils/token");
 
@@ -95,6 +96,29 @@ const updateShare = async (request, response) => {
     response.status(200).json({ message: "Update share successfully" });
   }
 };
+const getAllShared = async (request, response) => {
+  if (!request.user) {
+    response.status(401).json({ error: "Unauthorized" });
+  } else {
+    const allUsersWSharedTrue = await User.find({ share: true }).populate({
+      path: "nextwatches",
+      populate: { path: "watch_id" },
+    });
+
+    const returedData = allUsersWSharedTrue.map((user) => ({
+      id: user.id,
+      username: user.username,
+      nextwatches: user.nextwatches.map((nextwatch) => ({
+        title: nextwatch.watch_id.title,
+        watch_id: nextwatch.watch_id.id,
+        posterUrl: nextwatch.watch_id.posterUrl,
+        id: nextwatch.id,
+      })),
+    }));
+
+    response.status(200).json(returedData);
+  }
+};
 
 module.exports = {
   signup,
@@ -102,4 +126,5 @@ module.exports = {
   getOne,
   getNextwatches,
   updateShare,
+  getAllShared,
 };
