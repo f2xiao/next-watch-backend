@@ -10,5 +10,6 @@ router
   .route("/nextwatches")
   .get(authenticateUser, userController.getNextwatches);
 router.route("/share").put(authenticateUser, userController.updateShare);
+router.route("/allshared").get(authenticateUser, userController.getAllShared);
 
 module.exports = router;
