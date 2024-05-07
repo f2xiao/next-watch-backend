@@ -1,3 +1,5 @@
+# api test file
+requests/testing.http
 # Logs
 logs
 *.log

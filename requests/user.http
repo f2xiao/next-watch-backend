@@ -1,0 +1,95 @@
+###
+POST http://localhost:8080/api/users/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "email":"viv@gmail.com",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+###
+POST http://localhost:8080/api/users/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "email":"vivgmail.com",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+
+###
+POST http://localhost:8080/api/users/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"viv",
+    "email":"viv@gmail.com",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+
+###
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+###
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"viv",
+    "password":"8wOQB5:LS02?x9G5Cppm&D<"
+}
+###
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "password":"iamthead"
+}
+
+###
+GET http://localhost:8080/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"vivi",
+    "password":"iamthead"
+}
+
+###
+POST http://localhost:8080/api/users/nextwatches/add HTTP/1.1
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+    "watchId":"663142f650b4130d190f78fe"
+}
+
+###
+GET http://localhost:8080/api/users/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzN2Y0ZDdlMDJlNWVkMTU4YmM3MDYxIiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE1MDQzMzk0LCJleHAiOjE3MTUyMTYxOTR9.9x2yVUB3CnVyOBgXyyZCKTkYKrRq6bhOqFjtqiYA5dU
+Content-Type: application/json
+
+###
+GET http://localhost:8080/api/users/nextwatches HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzN2Y0ZDdlMDJlNWVkMTU4YmM3MDYxIiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE1MDQzMzk0LCJleHAiOjE3MTUyMTYxOTR9.9x2yVUB3CnVyOBgXyyZCKTkYKrRq6bhOqFjtqiYA5dU
+Content-Type: application/json
+###
+PUT http://localhost:8080/api/users HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzN2Y0ZDdlMDJlNWVkMTU4YmM3MDYxIiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE1MDQzMzk0LCJleHAiOjE3MTUyMTYxOTR9.9x2yVUB3CnVyOBgXyyZCKTkYKrRq6bhOqFjtqiYA5dU
+Content-Type: application/json
+
+{
+    
+}
+
+
+###
+DELETE http://localhost:8080/api/users/6636cb05d7702ba15b49745f HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTc5MzIwMWYwMjQzY2VmM2ZhMTc0IiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE0ODY1NDUyLCJleHAiOjE3MTUwMzgyNTJ9.J9ksQIzezJU83-njDWK2hB2116TGbW7UWBAsQ2ROpXY
+Content-Type: application/json
