@@ -25,6 +25,7 @@ mongoose
     logger.error("error connecting to MongoDB:", error.message);
   });
 
+// app.use(cors());
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
