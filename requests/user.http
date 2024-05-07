@@ -71,9 +71,23 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/api/users/nextwatches HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTkwN2I5OTgyYzAyNjBkN2I5NTUzIiwidXNlcm5hbWUiOiJwaXhpZSIsImlhdCI6MTcxNDc4NjQ0NSwiZXhwIjoxNzE0OTU5MjQ1fQ.YcA5y6R0DgOwo4PxhZwJy0j_I2rrOYH2RlqndGGIN-8
+GET http://localhost:8080/api/users/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzN2Y0ZDdlMDJlNWVkMTU4YmM3MDYxIiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE1MDQzMzk0LCJleHAiOjE3MTUyMTYxOTR9.9x2yVUB3CnVyOBgXyyZCKTkYKrRq6bhOqFjtqiYA5dU
 Content-Type: application/json
+
+###
+GET http://localhost:8080/api/users/nextwatches HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzN2Y0ZDdlMDJlNWVkMTU4YmM3MDYxIiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE1MDQzMzk0LCJleHAiOjE3MTUyMTYxOTR9.9x2yVUB3CnVyOBgXyyZCKTkYKrRq6bhOqFjtqiYA5dU
+Content-Type: application/json
+###
+PUT http://localhost:8080/api/users HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzN2Y0ZDdlMDJlNWVkMTU4YmM3MDYxIiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE1MDQzMzk0LCJleHAiOjE3MTUyMTYxOTR9.9x2yVUB3CnVyOBgXyyZCKTkYKrRq6bhOqFjtqiYA5dU
+Content-Type: application/json
+
+{
+    
+}
+
 
 ###
 DELETE http://localhost:8080/api/users/6636cb05d7702ba15b49745f HTTP/1.1
