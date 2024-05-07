@@ -5,7 +5,7 @@ Content-Type: application/json
 {
     "username":"lulu",
     "email":"lulu@icloud.com",
-    "password":"ilovechuru"
+    "password":""
 }
 
 ###
@@ -14,12 +14,12 @@ Content-Type: application/json
 
 {
     "username":"lulu",
-    "password":"ilovechuru"
+    "password":""
 }
 
 ###
 POST http://localhost:8080/api/nextwatches HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTc5MzIwMWYwMjQzY2VmM2ZhMTc0IiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE0NzgwNTYxLCJleHAiOjE3MTQ5NTMzNjF9.LVHuH2H8AZat8NTqyPLZnTF8HFxNa6V77Tt68-Dky8k
+Authorization: Bearer 
 Content-Type: application/json
 
 {
@@ -27,7 +27,7 @@ Content-Type: application/json
 }
 ###
 POST http://localhost:8080/api/nextwatches HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTc5MzIwMWYwMjQzY2VmM2ZhMTc0IiwidXNlcm5hbWUiOiJsdWx1IiwiaWF0IjoxNzE0NzgwNTYxLCJleHAiOjE3MTQ5NTMzNjF9.LVHuH2H8AZat8NTqyPLZnTF8HFxNa6V77Tt68-Dky8k
+Authorization: Bearer 
 Content-Type: application/json
 
 {
@@ -41,7 +41,7 @@ Content-Type: application/json
 {
     "username":"pixie",
     "email":"pixie@icloud.com",
-    "password":"iloveoutside"
+    "password":""
 }
 
 ###
@@ -55,7 +55,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/api/nextwatches HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTkwN2I5OTgyYzAyNjBkN2I5NTUzIiwidXNlcm5hbWUiOiJwaXhpZSIsImlhdCI6MTcxNDc4NjQ0NSwiZXhwIjoxNzE0OTU5MjQ1fQ.YcA5y6R0DgOwo4PxhZwJy0j_I2rrOYH2RlqndGGIN-8
+Authorization: Bearer 
 Content-Type: application/json
 
 {
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ###
 POST http://localhost:8080/api/nextwatches HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTkwN2I5OTgyYzAyNjBkN2I5NTUzIiwidXNlcm5hbWUiOiJwaXhpZSIsImlhdCI6MTcxNDc4NjQ0NSwiZXhwIjoxNzE0OTU5MjQ1fQ.YcA5y6R0DgOwo4PxhZwJy0j_I2rrOYH2RlqndGGIN-8
+Authorization: Bearer 
 Content-Type: application/json
 
 {
@@ -71,11 +71,36 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:8080/api/nextwatches HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTkwN2I5OTgyYzAyNjBkN2I5NTUzIiwidXNlcm5hbWUiOiJwaXhpZSIsImlhdCI6MTcxNDc4NjQ0NSwiZXhwIjoxNzE0OTU5MjQ1fQ.YcA5y6R0DgOwo4PxhZwJy0j_I2rrOYH2RlqndGGIN-8
+Authorization: Bearer 
 Content-Type: application/json
+
+###
+POST http://localhost:8080/api/nextwatches HTTP/1.1
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+    "watch_id": "663142f650b4130d190f790c"
+}
+
+###
+DELETE http://localhost:8080/api/nextwatches/663a13c829ee1a3c92a4bc8e HTTP/1.1
+Authorization: Bearer
+Content-Type: application/json
+
+###
+GET http://localhost:8080/api/nextwatches/6637a89e13d4accbc68d3013 HTTP/1.1
+Authorization: Bearer 
+Content-Type: application/json
+
+###
+GET http://localhost:8080/api/nextwatches/watch/663142f650b4130d190f78fe HTTP/1.1
+Authorization: Bearer 
+Content-Type: application/json
+
 ###
 DELETE http://localhost:8080/api/nextwatches/6635ac71ac4c87c10043af09 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTkwN2I5OTgyYzAyNjBkN2I5NTUzIiwidXNlcm5hbWUiOiJwaXhpZSIsImlhdCI6MTcxNDc4NjQ0NSwiZXhwIjoxNzE0OTU5MjQ1fQ.YcA5y6R0DgOwo4PxhZwJy0j_I2rrOYH2RlqndGGIN-8
+Authorization: Bearer 
 Content-Type: application/json
 
 ###
@@ -84,7 +109,7 @@ Authorization: Bearer
 Content-Type: application/json
 
 DELETE http://localhost:8080/api/nextwatches/6635ac71ac4c87c10043af09 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzNTkwN2I5OTgyYzAyNjBkN2I5NTUzIiwidXNlcm5hbWUiOiJwaXhpZSIsImlhdCI6MTcxNDc4NjQ0NSwiZXhwIjoxNzE0OTU5MjQ1fQ.YcA5y6R0DgOwo4PxhZwJy0j_I2rrOYH2RlqndGGIN-8
+Authorization: Bearer 
 Content-Type: application/json
 
 ###

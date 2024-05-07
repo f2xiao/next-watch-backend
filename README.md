@@ -12,10 +12,16 @@ Response:
 
 ```
 [
-    {
-        "id": 1
-    },
-    ...
+  {
+    "title": "No Way Up",
+    "description": "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/hu40Uxp9WtpL34jv3zyWLb5zEVY.jpg",
+    "backdropUrl": "https://image.tmdb.org/t/p/w500/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
+    "trailer_youtube": "e1k1PC0TtmE",
+    "category": "Movie",
+    "id": "663142f650b4130d190f78fa"
+  },
+  ...
 ]
 ```
 
@@ -26,12 +32,15 @@ Response:
 Response:
 
 ```
-[
-    {
-        "id": 1
-    },
-    ...
-]
+{
+  "title": "No Way Up",
+  "description": "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
+  "posterUrl": "https://image.tmdb.org/t/p/w500/hu40Uxp9WtpL34jv3zyWLb5zEVY.jpg",
+  "backdropUrl": "https://image.tmdb.org/t/p/w500/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
+  "trailer_youtube": "e1k1PC0TtmE",
+  "category": "Movie",
+  "id": "663142f650b4130d190f78fa"
+}
 ```
 
 **GET /api/nextwatches**
@@ -46,10 +55,17 @@ Response:
 
 ```
 [
-    {
-        "id": 1
+  {
+    "watch_id": {
+      "title": "Kung Fu Panda 4",
+      "category": "Movie",
+      "id": "663142f650b4130d190f78fe"
     },
-    ...
+    "user_id": "6637a5c1aea8aae27af799a2",
+    "rating": 0,
+    "id": "6637a89e13d4accbc68d3013"
+  },
+  ...
 ]
 ```
 
@@ -66,14 +82,16 @@ Response:
 
 ```
 [
-    {
-        "id": 1
-    },
-    ...
+  {
+    "watch_id": "663142f650b4130d190f78fe",
+    "user_id": "6637a5c1aea8aae27af799a2",
+    "rating": 0,
+    "id": "6637a89e13d4accbc68d3013"
+  }
 ]
 ```
 
-**GET /api/nextwatches/:id**
+**GET /api/nextwatches/watch/:watchId**
 
 - get one nextwatch based on the watch_id for an existing user
 
@@ -85,12 +103,12 @@ Parameters:
 Response:
 
 ```
-[
-    {
-        "id": 1
-    },
-    ...
-]
+{
+  "watch_id": "663142f650b4130d190f78fe",
+  "user_id": "6637a5c1aea8aae27af799a2",
+  "rating": 0,
+  "id": "6637a89e13d4accbc68d3013"
+}
 ```
 
 **POST /api/nextwatches**
@@ -106,10 +124,12 @@ Parameters:
 Response:
 
 ```
+
 {
-    "id": 1,
-    "name": "Fallout",
-    "userRating": 8
+  "watch_id": "663142f650b4130d190f790c",
+  "user_id": "6637a5c1aea8aae27af799a2",
+  "rating": 0,
+  "id": "663a13c829ee1a3c92a4bc8e"
 }
 ```
 
@@ -122,6 +142,14 @@ Parameters:
 - id: nextwatch id
 - token: JWT of the logged in user
 - rating: Number between 1 to 10
+
+Response:
+
+```
+{
+  "message": "Update the rating successfully"
+}
+```
 
 **DELETE /api/nextwatches/:id**
 
@@ -212,30 +240,7 @@ Response:
     "rating": 8,
     "id": "663824b82b1a0ed71fa38cbd"
   },
-  {
-    "watch_id": "663142f650b4130d190f7902",
-    "user_id": "6637f4d7e02e5ed158bc7061",
-    "rating": 2,
-    "id": "663855de093dd54582544f1b"
-  },
-  {
-    "watch_id": "663142f650b4130d190f78fa",
-    "user_id": "6637f4d7e02e5ed158bc7061",
-    "rating": 3,
-    "id": "663916d923c43faf6fdc742c"
-  },
-  {
-    "watch_id": "663142f650b4130d190f7901",
-    "user_id": "6637f4d7e02e5ed158bc7061",
-    "rating": 0,
-    "id": "66391b8023c43faf6fdc7484"
-  },
-  {
-    "watch_id": "663142f650b4130d190f7910",
-    "user_id": "6637f4d7e02e5ed158bc7061",
-    "rating": 0,
-    "id": "66397c6123c43faf6fdc781f"
-  }
+  ...
 ]
 ```
 
@@ -271,20 +276,21 @@ Response:
     "id": "6637a5c1aea8aae27af799a2",
     "username": "fangfang",
     "nextwatches": [
+      {
+        "title": "Kung Fu Panda 4",
+        "watch_id": "663142f650b4130d190f78fe",
+        "posterUrl": "https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg",
+        "id": "6637a89e13d4accbc68d3013"
+      },
+      {
+        "title": "Godzilla x Kong: The New Empire",
+        "watch_id": "663142f650b4130d190f78fb",
+        "posterUrl": "https://image.tmdb.org/t/p/w500/bQ2ywkchIiaKLSEaMrcT6e29f91.jpg",
+        "id": "6637d22ea0a250992a988e84"
+      }
     ]
   },
-  {
-    "id": "66383a02232cdc3045583d1f",
-    "username": "pixie",
-    "nextwatches": [
-    ]
-  },
-  {
-    "id": "6638f8fd23c43faf6fdc6f45",
-    "username": "arashi",
-    "nextwatches": [
-    ]
-  }
+ ...
 ]
 ```
 
