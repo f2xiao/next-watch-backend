@@ -8,7 +8,14 @@ const getAll = async (_request, response) => {
   try {
     const data = await Watch.find({});
 
-    response.status(200).json(data);
+    // console.log(data);
+
+    response.status(200).json(
+      data.map((ele) => {
+        const { id, title, posterUrl, backdropUrl } = ele;
+        return { id, title, posterUrl, backdropUrl };
+      })
+    );
   } catch (error) {
     response.status(400).send(`Error retrieving Watches: ${error}`);
   }
